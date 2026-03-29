@@ -50,15 +50,15 @@ The system follows a decoupled, asynchronous architecture to ensure high perform
 
 ```mermaid
 graph TD
-    User((User)) -->|POST /jobs| API[FastAPI API]
-    User -->|GET /jobs/{id}| API
-    API -->|Incr/Exp| RedisRL[(Redis - Rate Limit)]
-    API -->|Store Initial Job| MongoDB[(MongoDB - Persistence)]
-    API -->|Dispatch Task| RedisBroker[(Redis - Message Broker)]
-    RedisBroker -->|Consume Task| Worker[Celery Worker]
-    Worker -->|Simulate Process| Worker
-    Worker -->|Update Status/Results| MongoDB
-    Worker -->|Optional Callback| Webhook((External Webhook))
+    User((User)) -->|"POST /api/v1/jobs"| API[FastAPI API]
+    User -->|"GET /api/v1/jobs/{id}"| API
+    API -->|"Incr/Exp"| RedisRL[(Redis - Rate Limit)]
+    API -->|"Store Initial Job"| MongoDB[(MongoDB - Persistence)]
+    API -->|"Dispatch Task"| RedisBroker[(Redis - Message Broker)]
+    RedisBroker -->|"Consume Task"| Worker[Celery Worker]
+    Worker -->|"Simulate Process"| Worker
+    Worker -->|"Update Status/Results"| MongoDB
+    Worker -->|"Optional Callback"| Webhook((External Webhook))
 ```
 
 ### Component Breakdown
